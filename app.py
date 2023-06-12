@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import matplotlib.pyplot as plt
 import scipy.signal as signal
 
 def main():
@@ -28,7 +29,6 @@ def main():
     w, mag, phase = signal.bode(closed_loop_tf)
 
     fig2, (ax2, ax3) = plt.subplots(nrows=2)
-
     ax2.semilogx(w, mag)  # 주파수 응답 그래프
     ax2.set_xlabel('Frequency')
     ax2.set_ylabel('Magnitude (dB)')
