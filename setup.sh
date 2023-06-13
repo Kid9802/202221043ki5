@@ -1,7 +1,15 @@
-# 가상환경 생성 및 활성화
-rm -rf venv
-python -m venv venv
+mkdir -p ~/.streamlit/
 
-# 패키지 설치
-pip install --upgrade pip
-pip install -r requlrements.txt
+      
+
+  echo "\
+
+  [server]\n\
+
+  headless = true\n\
+
+  enableCORS=false\n\
+
+  port = $PORT\n\
+
+  " > ~/.streamlit/config.toml.
