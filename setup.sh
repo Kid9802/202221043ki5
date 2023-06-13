@@ -5,3 +5,4 @@ python -m venv venv
 # 패키지 설치
 pip install --upgrade pip
 pip install -r requlrements.txt
+pip install matplotlib
