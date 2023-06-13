@@ -4,4 +4,4 @@ python -m venv nenv
 
 # 패키지 설치
 pip install --upgradepip
-pip install -r requlremnts.txt
+pip install -r requlrements.txt
