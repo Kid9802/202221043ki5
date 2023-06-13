@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy import signal
+import scipy.signal as signal
 import streamlit as st
 
 # 전달함수 정의
