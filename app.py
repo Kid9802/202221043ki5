@@ -1,52 +1,48 @@
+import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal as signal
-import streamlit as st
 
-# 전달함수 정의
-num = [100]
-den = [1, 5, 6]  # 폐루프 전달함수의 분모
-
-G = signal.TransferFunction(num, den)
-
-# Unit step 입력에 대한 응답 곡선
-t, y = signal.step(G)
-
-# 주파수 응답 보드선도
-w, mag, phase = signal.bode(G)
-
-
-# Streamlit 앱
 def main():
-    st.title('Control System Analysis')
-    
+    st.title('전달함수 분석')
+
+    # 전달 함수 G(s)
+    num = [100]
+    den = [1, 5, 6]  # (s+2)(s+3)
+
+    # 폐루프 전달 함수 계산
+    closed_loop_tf = signal.TransferFunction(num, den)
+
+    # unit step 입력의 응답 계산
+    t, y = signal.step(closed_loop_tf)
+
     # 응답 곡선 그리기
-    st.header('Step Response')
     fig1, ax1 = plt.subplots()
     ax1.plot(t, y)
     ax1.set_xlabel('Time')
     ax1.set_ylabel('Output')
-    ax1.set_title('Step Response')
+    ax1.set_title('Step Response of Closed-Loop System')
     ax1.grid(True)
     st.pyplot(fig1)
-    
-    # 주파수 응답 보드선도 그리기
-    st.header('Bode Diagram')
-    fig2, (ax2, ax3) = plt.subplots(2, 1)
-    ax2.semilogx(w, mag)
-    ax2.set_xlabel('Frequency [rad/s]')
-    ax2.set_ylabel('Magnitude [dB]')
-    ax2.set_title('Bode Diagram - Magnitude')
+
+    # 주파수 응답 그리기
+    w, mag, phase = signal.bode(closed_loop_tf)
+
+    fig2, (ax2, ax3) = plt.subplots(nrows=2)
+
+    ax2.semilogx(w, mag)  # 주파수 응답 그래프
+    ax2.set_xlabel('Frequency')
+    ax2.set_ylabel('Magnitude (dB)')
+    ax2.set_title('Bode Plot - Magnitude Response')
     ax2.grid(True)
 
-    ax3.semilogx(w, phase)
-    ax3.set_xlabel('Frequency [rad/s]')
-    ax3.set_ylabel('Phase [degrees]')
-    ax3.set_title('Bode Diagram - Phase')
+    ax3.semilogx(w, phase)  # 위상 응답 그래프
+    ax3.set_xlabel('Frequency')
+    ax3.set_ylabel('Phase (degrees)')
+    ax3.set_title('Bode Plot - Phase Response')
     ax3.grid(True)
 
     st.pyplot(fig2)
-
 
 if __name__ == '__main__':
     main()
